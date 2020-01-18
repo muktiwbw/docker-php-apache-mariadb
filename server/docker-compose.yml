@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  php-apache:
+    image: php-apache
+    container_name: blog
+    build:
+      context: '.'
+      args:
+        uid: 1444
+    environment:
+      - APACHE_RUN_USER=#1444
+      - APACHE_RUN_GROUP=#1444
+    volumes:
+      - .:/var/www/html
+    ports:
+      - 8000:80
+    networks:
+        php-network:
+            aliases:
+                - php-apache
+
+networks:
+  php-network:
+    name: php-network
+    external: 
+      name: db-network

@@ -1,0 +1,38 @@
+version: '3.5'
+
+services: 
+    mariadb:
+        image: mariadb:10.4.11
+        container_name: app-mariadb
+        volumes: 
+            - ./lib:/var/lib/mysql
+        environment: 
+            - MYSQL_ROOT_PASSWORD=securerootpassword
+            - MYSQL_DATABASE=test
+            - MYSQL_USER=muktiwbw
+            - MYSQL_PASSWORD=muktiwbw
+        restart: always
+        command: --innodb-flush-method=fsync
+        networks: 
+            db:
+                aliases: 
+                    - mariadb
+    
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: app-phpmyadmin
+        links: 
+            - mariadb
+        environment: 
+            PMA_HOST: mariadb
+            PMA_PORT: 3306
+        ports: 
+            - 3316:80
+        networks:
+            db:
+                aliases: 
+                    - phpmyadmin
+
+networks: 
+    db:
+        name: db-network
