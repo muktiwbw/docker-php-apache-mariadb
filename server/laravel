@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker exec -it php-apache-dev bash -c "sudo -u devuser /bin/bash -c \"composer create-project --prefer-dist laravel/laravel blog\""
