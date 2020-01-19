@@ -3,7 +3,7 @@ version: '3.5'
 services:
   php-apache:
     image: php-apache
-    container_name: blog
+    container_name: php-apache
     build:
       context: '.'
       args:
@@ -14,7 +14,7 @@ services:
     volumes:
       - .:/var/www/html
     ports:
-      - 8000:80
+      - 8000
     networks:
         php-network:
             aliases:

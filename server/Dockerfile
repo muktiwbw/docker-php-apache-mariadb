@@ -19,7 +19,7 @@ RUN apt-get update && \
     g++
 
 # 2. apache configs + document root
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/web/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
 # 3. mod_rewrite for URL rewrite and mod_headers for .htaccess extra headers like Access-Control-Allow-Origin-
@@ -47,3 +47,5 @@ ARG uid
 RUN useradd -G www-data,root -u $uid -d /home/devuser devuser && \
     mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
+
+EXPOSE 8000
