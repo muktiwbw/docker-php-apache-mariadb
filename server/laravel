@@ -1,4 +1,3 @@
 #!/bin/bash
-composer global require laravel/installer
-export PATH="~/.composer/vendor/bin:$PATH"
-laravel new web
+
+composer create-project --prefer-dist laravel/laravel web
