@@ -1,9 +1,9 @@
 version: '3.5'
 
 services:
-  php-apache-dev:
-    image: php-apache-dev
-    container_name: php-apache-dev
+  web-dev:
+    image: web-dev
+    container_name: web-dev
     build:
       context: '.'
       args:
@@ -16,12 +16,12 @@ services:
     ports:
       - 8000:8000
     networks:
-        php-network-dev:
+        web-network-dev:
             aliases:
-                - php-apache-dev
+                - web-dev
 
 networks:
-  php-network-dev:
-    name: php-network-dev
+  web-network-dev:
+    name: web-network-dev
     external: 
       name: db-network
