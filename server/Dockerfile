@@ -18,7 +18,7 @@ RUN apt-get update && \
     libfreetype6-dev \
     g++
 
-# 4. start with base php config, then add extensions
+# 2. start with base php config, then add extensions
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" && \
     docker-php-ext-install \
     bz2 \
@@ -28,12 +28,20 @@ RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini" && \
     opcache \
     calendar \
     pdo_mysql \
-    zip
+    zip  \
+	mysqli
+	
+# 3. other packages
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
+	apt-get install -y nodejs \
+	python \
+	python3-pip \
+	nano
 
-# 5. composer
+# 4 composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# 6. we need a user with the same UID/GID with host user
+# 5. we need a user with the same UID/GID with host user
 # so when we execute CLI commands, all the host file's ownership remains intact
 # otherwise command from inside container will create root-owned files and directories
 ARG uid
@@ -41,4 +49,4 @@ RUN useradd -G www-data,root -u $uid -d /home/devuser devuser && \
     mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
-EXPOSE 8000
+EXPOSE 8000 5000 3000
