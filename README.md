@@ -1,2 +1,2 @@
 # docker-web-dev
-A php development environment with apache and mariadb.
+A php development environment with PHP, NodeJS, Python3, and Mariadb.
