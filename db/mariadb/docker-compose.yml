@@ -12,7 +12,7 @@ services:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
     networks: 
-            db:
+            genesis:
                 aliases: 
                     - mariadb
                     
@@ -27,14 +27,15 @@ services:
         ports: 
             - 3316:80
         networks:
-            db:
+            genesis:
                 aliases: 
                     - phpmyadmin
 
 volumes:
   mariadb_data:
     driver: local
-
-networks: 
-    db:
-        name: db-network
+    
+networks:
+    genesis:
+        external:
+            name: genesis

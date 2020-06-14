@@ -15,13 +15,14 @@ services:
       - .:/var/www/html
     ports:
       - 8000:8000
+      - 5000:5000
+      - 3000:3000
     networks:
-        web-network-dev:
+        genesis:
             aliases:
                 - web-dev
 
 networks:
-  web-network-dev:
-    name: web-network-dev
-    external: 
-      name: db-network
+    genesis:
+        external:
+            name: genesis
